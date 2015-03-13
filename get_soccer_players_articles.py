@@ -16,20 +16,20 @@ def load_wiki_ids(filein):
 
 '''Prints article present in path "corpus_dir" if its ID is present in "soccer_ids" list'''
 def extract_soccer_articles(soccer_ids, corpus_dir, output_dir):
-    '''For loop walks through all the subdirectories and file in root directory-"corpus_dir"'''
+    #For loop walks through all the subdirectories and file in root directory-"corpus_dir"
     for path, subdirs, files in os.walk(corpus_dir):
         for name in files:
             f = os.path.join(path, name)
             with open(f) as i:
-                 '''Read the contents in file to "content"''' 
+                 #Read the contents in file to "content" 
                  content = ''.join(i.readlines())
-            '''Extract the "current_id" from text line having format for eg. id="336"''' 
+            #Extract the "current_id" from text line having format for eg. id="336"''' 
             match = re.search('id="([^"]+)"', content)
             current_id = match.group(1)
             if DEBUG:
                 print "File = [%s] - Wiki ID = [%s]" % (f, current_id)
             if current_id in soccer_ids:
-                '''copy the file to "output_dir"'''
+                #copy the file to "output_dir"
                 shutil.copy(f, output_dir)
                 if DEBUG:
                     print "MATCHED! [%s]" % content
